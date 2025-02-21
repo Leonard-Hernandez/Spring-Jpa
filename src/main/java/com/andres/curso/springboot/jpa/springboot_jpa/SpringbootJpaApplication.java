@@ -11,7 +11,7 @@ import com.andres.curso.springboot.jpa.springboot_jpa.entities.Person;
 import com.andres.curso.springboot.jpa.springboot_jpa.repositories.PersonRepository;
 
 @SpringBootApplication
-public class SpringbootJpaApplication implements CommandLineRunner{
+public class SpringbootJpaApplication implements CommandLineRunner {
 
 	@Autowired
 	private PersonRepository personRepository;
@@ -22,7 +22,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		List<Person> persons = (List<Person>) personRepository.buscarByProgrammingLanguage("Java");
 
 		persons.stream().forEach(System.out::println);

@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.andres.curso.springboot.jpa.springboot_jpa.entities.Person;
 
-public interface PersonRepository extends  CrudRepository<Person, Long> {
+public interface PersonRepository extends CrudRepository<Person, Long> {
 
     List<Person> findByProgrammingLanguage(String programmingLanguage);
 
