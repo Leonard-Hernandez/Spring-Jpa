@@ -23,6 +23,17 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		findOne();
+
+	}
+
+	public void findOne(){
+		Person person = personRepository.findById(1L).orElseThrow();
+		System.out.println(person);
+	}
+
+	public void list(){
+		
 		List<Person> persons = (List<Person>) personRepository.buscarByProgrammingLanguage("Java");
 
 		persons.stream().forEach(System.out::println);
@@ -33,7 +44,6 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		personData.stream().forEach(person -> {
 			System.out.println(person[0] + " es experto en " + person[1]);
 		});
-
 	}
 
 }
