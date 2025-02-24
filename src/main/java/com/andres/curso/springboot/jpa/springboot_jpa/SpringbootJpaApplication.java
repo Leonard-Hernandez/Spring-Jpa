@@ -1,6 +1,7 @@
 package com.andres.curso.springboot.jpa.springboot_jpa;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,11 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		create();
+		//create();
 
-		findOne();
+		//findOne();
 
+		update();
 	}
 
 	@Transactional(readOnly = true)
@@ -67,6 +69,32 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		personRepository.save(person);
 
 		scanner.close();
+	}
+
+	@Transactional
+	public void update(){
+
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Ingrese el id de la persona: ");
+		Long id = scanner.nextLong();
+
+		Optional<Person> person = personRepository.findById(id);
+		
+		person.ifPresent(p -> {
+			System.out.println(p);
+
+			System.out.println("Ingrese el lenguaje de programacion de la persona: ");
+			p.setProgrammingLanguage(scanner.nextLine());
+
+			Person pNew = personRepository.save(p);
+
+			System.out.println("Persona actualizada: " + pNew);
+
+		});
+
+		scanner.close();
+
 	}
 
 }
