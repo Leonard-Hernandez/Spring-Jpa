@@ -26,21 +26,23 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		//create();
+		// create();
 
-		//findOne();
+		// findOne();
 
-		update();
+		// update();
+
+		delete();
 	}
 
 	@Transactional(readOnly = true)
-	public void findOne(){
+	public void findOne() {
 		personRepository.findByNameContaining("nard").ifPresent(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
-	public void list(){
-		
+	public void list() {
+
 		List<Person> persons = (List<Person>) personRepository.buscarByProgrammingLanguage("Java");
 
 		persons.stream().forEach(System.out::println);
@@ -54,8 +56,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	public void create(){
-		
+	public void create() {
+
 		Person person = new Person();
 		Scanner scanner = new Scanner(System.in);
 
@@ -72,7 +74,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	}
 
 	@Transactional
-	public void update(){
+	public void update() {
 
 		Scanner scanner = new Scanner(System.in);
 
@@ -80,7 +82,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		Long id = scanner.nextLong();
 
 		Optional<Person> person = personRepository.findById(id);
-		
+
 		person.ifPresent(p -> {
 			System.out.println(p);
 
@@ -94,6 +96,44 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		});
 
 		scanner.close();
+
+	}
+
+	@Transactional
+	public void delete() {
+		Scanner scanner = new Scanner(System.in);
+
+		personRepository.findAll().forEach(System.out::println);
+
+		System.out.println("Ingrese el id de la persona a eliminar: ");
+		Long id = scanner.nextLong();
+		scanner.close();
+
+		personRepository.deleteById(id);
+
+		System.out.println("Persona eliminada");
+		personRepository.findAll().forEach(System.out::println);
+
+	}
+
+	@Transactional
+	public void delete2() {
+		Scanner scanner = new Scanner(System.in);
+
+		personRepository.findAll().forEach(System.out::println);
+
+		System.out.println("Ingrese el id de la persona a eliminar: ");
+		Long id = scanner.nextLong();
+		scanner.close();
+
+		personRepository.findById(id).ifPresentOrElse(
+			person -> {
+				personRepository.delete(person);
+				System.out.println("Persona eliminada");
+				personRepository.findAll().forEach(System.out::println);
+			}, 
+			() -> System.out.println("No se encontro la persona")
+		);
 
 	}
 
