@@ -32,7 +32,9 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		// update();
 
-		delete();
+		//delete();
+
+		perzonalizedQueries();
 	}
 
 	@Transactional(readOnly = true)
@@ -135,6 +137,23 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 			() -> System.out.println("No se encontro la persona")
 		);
 
+	}
+
+	@Transactional
+	public void perzonalizedQueries(){
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("===========================================================");
+		System.out.println("Consulta nombre por id \n Ingrese el id de la persona: ");
+		Long id = scanner.nextLong();
+		System.out.println("El nombre de la persona es " + personRepository.getNameById(id));
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta nombre y apellido por id \n Ingrese el id de la persona: ");
+		id = scanner.nextLong();
+		System.out.println("El nombre y apellido de la persona es " + personRepository.getFullNameById(id));
+		
+		scanner.close();
 	}
 
 }
