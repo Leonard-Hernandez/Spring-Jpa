@@ -34,7 +34,9 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		//delete();
 
-		perzonalizedQueries();
+		//perzonalizedQueries();
+		
+		perzonalizedQueries2();
 	}
 
 	@Transactional(readOnly = true)
@@ -165,6 +167,25 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		personRegList.forEach( p -> System.out.println(p[0] + " " + p[1] +" es experto en " + p[2]));
 		
 		scanner.close();
+	}
+
+	@Transactional
+	public void perzonalizedQueries2(){
+		System.out.println("===========================================================");
+		System.out.println("Consulta nombre y lenguaje de programacion: ");
+		List<Object[]> personRegList = personRepository.findAllMixPerson();
+
+		personRegList.forEach(p -> {
+			System.out.println("programingLanguage: " + p[1] + " name: " + p[0]);
+		});
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con constructor dinamico");
+		List<Person> personRegList2 = personRepository.findAllClassPerson();
+
+		personRegList2.forEach(p -> {
+			System.out.println(p);
+		});
 	}
 
 }
