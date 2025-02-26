@@ -152,6 +152,17 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("Consulta nombre y apellido por id \n Ingrese el id de la persona: ");
 		id = scanner.nextLong();
 		System.out.println("El nombre y apellido de la persona es " + personRepository.getFullNameById(id));
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta por campos personalizados por el id \n Ingrese el id de la persona: ");
+		id = scanner.nextLong();
+		Object[] personReg =(Object[]) personRepository.obtenerPersonDataById(id);
+		System.out.println(personReg[0] + " " + personReg[1] +" es experto en " + personReg[3]);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta por campos personalizados Lista");
+		List<Object[]> personRegList = personRepository.obtenerPersonDataList();
+		personRegList.forEach( p -> System.out.println(p[0] + " " + p[1] +" es experto en " + p[2]));
 		
 		scanner.close();
 	}
