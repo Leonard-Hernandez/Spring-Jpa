@@ -6,12 +6,13 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.andres.curso.springboot.jpa.springboot_jpa.dto.PersonDto;
 import com.andres.curso.springboot.jpa.springboot_jpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
-    @Query("SELECT new Person(p.name, p.lastname) from Person p")
-    List<Person> findAllClassPerson();
+    @Query("SELECT new com.andres.curso.springboot.jpa.springboot_jpa.dto.PersonDto(p.name, p.lastname) from Person p")
+    List<PersonDto> findAllClassPerson();
 
     List<Person> findByProgrammingLanguage(String programmingLanguage);
 

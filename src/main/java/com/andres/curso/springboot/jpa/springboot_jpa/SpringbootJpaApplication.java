@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.andres.curso.springboot.jpa.springboot_jpa.dto.PersonDto;
 import com.andres.curso.springboot.jpa.springboot_jpa.entities.Person;
 import com.andres.curso.springboot.jpa.springboot_jpa.repositories.PersonRepository;
 
@@ -181,7 +182,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		System.out.println("===========================================================");
 		System.out.println("Consulta con constructor dinamico");
-		List<Person> personRegList2 = personRepository.findAllClassPerson();
+		List<PersonDto> personRegList2 = personRepository.findAllClassPerson();
 
 		personRegList2.forEach(p -> {
 			System.out.println(p);
