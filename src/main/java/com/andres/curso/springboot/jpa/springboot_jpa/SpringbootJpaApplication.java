@@ -37,7 +37,9 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		//perzonalizedQueries();
 		
-		perzonalizedQueries2();
+		//perzonalizedQueries2();
+
+		perzonalizedQueriesDistinct();
 	}
 
 	@Transactional(readOnly = true)
@@ -142,7 +144,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public void perzonalizedQueries(){
 
 		Scanner scanner = new Scanner(System.in);
@@ -170,7 +172,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		scanner.close();
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public void perzonalizedQueries2(){
 		System.out.println("===========================================================");
 		System.out.println("Consulta nombre y lenguaje de programacion: ");
@@ -187,6 +189,35 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		personRegList2.forEach(p -> {
 			System.out.println(p);
 		});
+	}
+
+	@Transactional(readOnly = true)
+	public void perzonalizedQueriesDistinct(){
+		
+		System.out.println("===========================================================");
+		System.out.println("Consulta con nombres de personas");
+		List<String> personRegList = personRepository.findAllNames();
+
+		personRegList.forEach(System.out::println);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con nombres de personas con distinct");
+		List<String> personRegList2 = personRepository.findAllNamesDistinct();
+
+		personRegList2.forEach(System.out::println);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con lenguajes de programacion con distinct");
+		List<String> personRegList3 = personRepository.findAllProgrammingLanguagesDistict();
+
+		personRegList3.forEach(System.out::println);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta count lenguajes de programacion");
+		Integer personRegList4 = personRepository.findAllProgrammingLanguagesDistictCount();
+
+		System.out.println(personRegList4);
+
 	}
 
 }

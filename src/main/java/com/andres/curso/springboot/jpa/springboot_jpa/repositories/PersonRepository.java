@@ -11,6 +11,12 @@ import com.andres.curso.springboot.jpa.springboot_jpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("SELECT p.name FROM Person p")
+    List<String> findAllNames();
+
+    @Query("SELECT DISTINCT(p.name) FROM Person p")
+    List<String> findAllNamesDistinct();
+
     @Query("SELECT new com.andres.curso.springboot.jpa.springboot_jpa.dto.PersonDto(p.name, p.lastname) from Person p")
     List<PersonDto> findAllClassPerson();
 
@@ -18,6 +24,12 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
     @Query("SELECT p FROM Person p WHERE p.programmingLanguage = ?1")
     List<Person> buscarByProgrammingLanguage(String programmingLanguage);
+
+    @Query("SELECT DISTINCT(p.programmingLanguage) FROM Person p")
+    List<String> findAllProgrammingLanguagesDistict();
+
+    @Query("SELECT COUNT(DISTINCT(p.programmingLanguage)) FROM Person p")
+    Integer findAllProgrammingLanguagesDistictCount();
 
     @Query("SELECT p.name, p.programmingLanguage from Person p")
     List<Object[]> obtenerPersonData();
