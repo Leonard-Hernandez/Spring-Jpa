@@ -39,7 +39,9 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		
 		//perzonalizedQueries2();
 
-		perzonalizedQueriesDistinct();
+		//perzonalizedQueriesDistinct();
+
+		perzonalizedQueriesConcatUpperAndLowerCase();
 	}
 
 	@Transactional(readOnly = true)
@@ -217,6 +219,32 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		Integer personRegList4 = personRepository.findAllProgrammingLanguagesDistictCount();
 
 		System.out.println(personRegList4);
+
+	}
+
+	@Transactional(readOnly = true)
+	public void perzonalizedQueriesConcatUpperAndLowerCase(){
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con nombres y apellidos de personas");
+
+		List<String> personRegList = personRepository.findAllFullNameConcat();
+
+		personRegList.forEach(System.out::println);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con nombres y apellidos de personas en minuscula");
+
+		List<String> personRegList2 = personRepository.findAllFullNameConcatLower();
+
+		personRegList2.forEach(System.out::println);
+
+		System.out.println("===========================================================");
+		System.out.println("Consulta con nombres y apellidos de personas en mayuscula");
+
+		List<String> personRegList3 = personRepository.findAllFullNameConcatUpper();
+
+		personRegList3.forEach(System.out::println);
 
 	}
 

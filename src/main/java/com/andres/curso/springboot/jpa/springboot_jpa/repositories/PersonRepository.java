@@ -60,4 +60,14 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     @Query("SELECT concat(p.name, ' ', p.lastname) FROM Person p WHERE p.id = ?1")
     String getFullNameById(Long id);
 
+    //@Query("SELECT concat(p.name, ' ', p.lastname) FROM Person p")
+    @Query("SELECT p.name || ' ' || p.lastname FROM Person p")
+    List<String> findAllFullNameConcat();
+
+    @Query("SELECT upper(p.name || ' ' || p.lastname) FROM Person p")
+    List<String> findAllFullNameConcatUpper();
+
+    @Query("SELECT lower(p.name || ' ' || p.lastname) FROM Person p")
+    List<String> findAllFullNameConcatLower();
+
 }
