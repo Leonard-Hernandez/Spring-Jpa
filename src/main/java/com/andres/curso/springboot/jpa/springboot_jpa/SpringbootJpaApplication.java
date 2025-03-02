@@ -27,7 +27,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// create();
+		create();
 
 		// findOne();
 
@@ -43,7 +43,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 
 		//perzonalizedQueriesConcatUpperAndLowerCase();
 
-		perzonalizedQueriesBetween();
+		//perzonalizedQueriesBetween();
+		
 	}
 
 	@Transactional(readOnly = true)
@@ -256,7 +257,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		System.out.println("===========================================================");
 		System.out.println("Consultas usuarios id entre 2 y 5");
 
-		List<Person> personRegList = personRepository.findByIdBetween(2,5);
+		List<Person> personRegList = personRepository.findAllBetween(2,5);
 
 		personRegList.forEach(System.out::println);
 
