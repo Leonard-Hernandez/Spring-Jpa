@@ -1,14 +1,11 @@
 package com.andres.curso.springboot.jpa.springboot_jpa.entities;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,11 +20,8 @@ public class Person {
     @Column(name = "programming_language")
     private String programmingLanguage;
 
-    @Column(name = "create_at")
-    private LocalDateTime createAt;
-
-    @Column(name = "update_at")
-    private LocalDateTime updateAt;
+    @Embedded
+    private Audit audit = new Audit();
 
     public Person() {
     }
@@ -35,18 +29,6 @@ public class Person {
     public Person(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        System.out.println("evento del ciclo de vida del entity pre persist");
-        this.createAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        System.out.println("evento del ciclo de vida del entity pre update");
-        this.updateAt = LocalDateTime.now();
     }
 
     public Person(Long id, String name, String lastname, String programmingLanguage) {
@@ -91,7 +73,7 @@ public class Person {
     @Override
     public String toString() {
         return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + " createAt=" + createAt + ", updateAt=" + updateAt + "]";
+                + programmingLanguage + " createAt=" + audit.getCreateAt() + ", updateAt=" + audit.getUpdateAt() + "]";
     }
 
 }
